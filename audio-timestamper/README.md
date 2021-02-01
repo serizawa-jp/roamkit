@@ -20,8 +20,10 @@ To install, do the same thing you do for any roam/js script.
 
 ```javascript
  window.audioTimestamperConfig = {
-   enableClickAndPlay: true
- }; 
+    enableClickAndPlay: true,
+    enableSpeedController: true,
+    speed: [0.5, 1.0, 1.5, 2.0]
+ };
 
  var s = document.createElement("script");
  s.type = "text/javascript";

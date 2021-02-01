@@ -1,5 +1,11 @@
 (function (global) {
-    const config = global.audioTimestamperConfig;
+    const defaultConfig = {
+        enableClickAndPlay: false,
+        enableSpeedController: false,
+        speed: [0.5, 1.0, 1.5, 2.0]
+    };
+    const config = {...defaultConfig, ...global.audioTimestamperConfig};
+
     const activate = () => {
         Array.from(document.getElementsByTagName('AUDIO'))
         .forEach(el => {
@@ -8,10 +14,29 @@
           }
           const block = el.closest('.roam-block-container');
           addTimestampButtons(block, el);
+
+          if (config.enableSpeedController) {
+            addSpeedControlButtons(block, el);
+          }
         });
     };
 
     const getControlButton = (block) => block.parentElement.querySelector('.audio-timestamp-control');
+    const getSpeedControlButton = (block) => block.parentElement.querySelector('.audio-speed-control');
+
+    const addSpeedControlButtons = (block, el) => {
+        if (block.children.length < 2) return null;
+
+        if (getSpeedControlButton(block) !== null) {
+            return null;
+        }
+
+        const parent = document.createElement('div');
+        config.speed.forEach(speed => addSpeedControlButton(parent, el, speed));
+
+        const closestMainBlock = el.closest('.rm-block-main');
+        closestMainBlock.parentElement.insertBefore(parent, closestMainBlock.nextSibling);
+    };
 
     const addTimestampButtons = (block, el) => {
         if (block.children.length < 2) return null;
@@ -42,6 +67,17 @@
         button.style.borderRadius = '50%';
         button.addEventListener('click', fn);
         block.parentElement.insertBefore(button, block);
+      };
+
+      const addSpeedControlButton = (parent, el, speed) => {
+        const button = document.createElement('button');
+        button.innerText = speed.toFixed(1);
+        button.classList.add('audio-speed-control');
+        button.style.borderRadius = '50%';
+        button.addEventListener('click', () => {
+            el.playbackRate = speed;
+        });
+        parent.insertBefore(button, parent.nextSibling);
       };
 
       const getTimestamp = (block) => {
