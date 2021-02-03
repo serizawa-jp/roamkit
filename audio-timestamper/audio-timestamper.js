@@ -3,12 +3,12 @@
         enableClickAndPlay: false,
         enableKeyShortCuts: true,
 
-        increaseSpeedKey: 'd',
-        decreaseSpeedKey: 's',
-        rewindKey: 'z',
-        advanceKey: 'x',
-        resetSpeedKey: 'r',
-        preferredSpeedKey: 'G',
+        increaseSpeedKey: 'alt+shift+d',
+        decreaseSpeedKey: 'alt+shift+s',
+        rewindKey: 'alt+shift+z',
+        advanceKey: 'alt+shift+x',
+        resetSpeedKey: 'alt+shift+r',
+        preferredSpeedKey: 'alt+shift+g',
 
         increaseSpeed: 0.5,
         decreaseSpeed: 0.5,
