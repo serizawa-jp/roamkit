@@ -55,7 +55,7 @@ To install, do the same thing you do for any roam/js script.
 
  var s = document.createElement("script");
  s.type = "text/javascript";
- s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@v0.1/audio-timestamper/audio-timestamper.js";
+ s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@v0.2/audio-timestamper/audio-timestamper.js";
  document.getElementsByTagName("head")[0].appendChild(s);
 ```
 
