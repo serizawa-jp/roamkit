@@ -5,6 +5,8 @@
 
 ## Speed Control Shortcuts
 
+**This is only available for the audio that is playing. If there are multiple playing audio tags, this short cuts will only work for the first audio tag.**
+
 | Name            | Default Key | Default Value |
 |-----------------|-------------|---------------|
 | Increase speed  | alt+shift+d | 0.5           |
