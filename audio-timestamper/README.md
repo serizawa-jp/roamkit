@@ -2,6 +2,20 @@
 
 ![](https://user-images.githubusercontent.com/78351950/106455697-e355f000-64cf-11eb-9e60-82763f9d2ffd.png)
 
+
+## Speed Control Shortcuts
+
+| Name            | Default Key | Default Value |
+|-----------------|-------------|---------------|
+| Increase speed  | alt+shift+d | 0.5           |
+| Decrease speed  | alt+shift+s | 0.5           |
+| Rewind          | alt+shift+z | 10            |
+| Advance         | alt+shft+x  | 10            |
+| Reset           | alt+shift+r | -             |
+| Preferred speed | alt+shift+g | 1.2           |
+
+In macOS, you can use 'option' instead of 'alt'.
+
 ## Installation
 
 To install, do the same thing you do for any roam/js script.
@@ -23,12 +37,12 @@ To install, do the same thing you do for any roam/js script.
    enableClickAndPlay: false,
    enableKeyShortCuts: true,
 
-   increaseSpeedKey: 'd',
-   decreaseSpeedKey: 's',
-   rewindKey: 'z',
-   advanceKey: 'x',
-   resetSpeedKey: 'r',
-   preferredSpeedKey: 'G',
+   increaseSpeedKey: 'alt+shift+d',
+   decreaseSpeedKey: 'alt+shift+s',
+   rewindKey: 'alt+shift+z',
+   advanceKey: 'alt+shift+x',
+   resetSpeedKey: 'alt+shift+r',
+   preferredSpeedKey: 'alt+shift+g',
 
    increaseSpeed: 0.5,
    decreaseSpeed: 0.5,
