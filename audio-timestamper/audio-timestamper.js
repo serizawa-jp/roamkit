@@ -1,6 +1,7 @@
 (function (global) {
     const defaultConfig = {
         enableClickAndPlay: false,
+        enableKeyShortCuts: true,
 
         increaseSpeedKey: 'd',
         decreaseSpeedKey: 's',
@@ -90,6 +91,12 @@
       };
 
       const mouseTrapReady = setInterval(() => {
+        if (!config.enableKeyShortCuts) {
+          clearInterval(mouseTrapReady);
+          log("disabled key shourtcuts");
+          return;
+        }
+
         log("in mouseTrapReady");
         if (Mousetrap === undefined) return;
         log("found: mouseTrapReady");

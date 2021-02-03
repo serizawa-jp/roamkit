@@ -21,6 +21,7 @@ To install, do the same thing you do for any roam/js script.
 ```javascript
  window.audioTimestamperConfig = {
    enableClickAndPlay: false,
+   enableKeyShortCuts: true,
 
    increaseSpeedKey: 'd',
    decreaseSpeedKey: 's',
