@@ -19,7 +19,7 @@
     <main>
         <ul>
             {{range $s := .Scripts }}
-                <li><a href="{{$s.Code}}">{{$s.Name}}</a>{{ if ne $s.Description "" }} - {{$s.Description}}{{end}}</li>
+                <li><a href='{{$s.Code}}'>{{$s.Name}}</a>{{ if ne $s.Description "" }} - {{$s.Description}}{{end}}</li>
             {{end}}
         </ul>
     </main>
