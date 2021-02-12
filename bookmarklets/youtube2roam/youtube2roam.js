@@ -7,7 +7,7 @@
         const transcripts = transcriptBody.map(el => {
             const row = Array.from(el.querySelectorAll('div')).slice(0, 2);
             const timestamp = row[0].textContent.trim();
-            const transcript = row[1].textContent.trim();
+            const transcript = row[1].textContent.trim().replace(/(\r\n|\n|\r)/gm, "");
             return { timestamp, transcript };
         });
 
