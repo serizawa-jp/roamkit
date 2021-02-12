@@ -2,16 +2,23 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"text/template"
 )
 
-const templateFileName = "README.md.tmpl"
+const (
+	readmeTemplateFileName = "README.md.tmpl"
+	docTemplateFileName    = "index.html.tmpl"
+)
 
-var t = template.Must(template.New(templateFileName).ParseFiles(templateFileName))
+var (
+	readmeTemplate = template.Must(template.New(readmeTemplateFileName).ParseFiles(readmeTemplateFileName))
+	docTemplate    = template.Must(template.New(docTemplateFileName).ParseFiles(docTemplateFileName))
+)
 
-func createREADME(dirname string) error {
+func createREADME(dirname, code string) error {
 	path := fmt.Sprintf("%s/README.md", dirname)
 	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
@@ -19,9 +26,7 @@ func createREADME(dirname string) error {
 	}
 	defer f.Close()
 
-	code := createBookmarklet(dirname)
-
-	return t.Execute(f, map[string]string{
+	return readmeTemplate.Execute(f, map[string]string{
 		"Name":   dirname,
 		"Script": code,
 	})
@@ -33,6 +38,34 @@ func createBookmarklet(name string) string {
 		name,
 		name,
 	)
+}
+
+func createDoc(scripts []Script) error {
+	path := "../docs/index.html"
+	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	return docTemplate.Execute(f, map[string]interface{}{
+		"Scripts": scripts,
+	})
+}
+
+func getDescription(dir string) string {
+	path := fmt.Sprintf("%s/.description", dir)
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return ""
+	}
+	return string(b)
+}
+
+type Script struct {
+	Name        string
+	Code        string
+	Description string
 }
 
 func main() {
@@ -56,11 +89,25 @@ func runMain() int {
 		return 1
 	}
 
+	var scripts = []Script{}
 	for _, d := range bookmarkletDirs {
-		if err := createREADME(d); err != nil {
+		code := createBookmarklet(d)
+		if err := createREADME(d, code); err != nil {
 			fmt.Fprintf(os.Stderr, "[ERROR] failed to create a README: %v\n", err)
 			return 1
 		}
+
+		s := Script{
+			Name:        d,
+			Code:        code,
+			Description: getDescription(d),
+		}
+		scripts = append(scripts, s)
+	}
+
+	if err := createDoc(scripts); err != nil {
+		fmt.Fprintf(os.Stderr, "[ERROR] failed to create a doc: %v\n", err)
+		return 1
 	}
 
 	return 0
