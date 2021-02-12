@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +8,34 @@
     <title>Bookmarklets - RoamKit</title>
 
     <!-- CSS for users with dark mode -->
-    <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_big-stone.min.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_big-stone.min.css"
+        media="(prefers-color-scheme: dark)">
     <!-- CSS for users without dark mode -->
     <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_pearl-lusta.min.css"
         media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
 </head>
+
 <body>
     <header>
         <h1>Bookmarklets</h1>
     </header>
     <main>
-        <ul>
-            
+        <div>
+            <ul>
+                
                 <li><a href='javascript:void((function(){var s = document.createElement("script");s.type = "text/javascript";s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@main/bookmarklets/newsela2roam/newsela2roam.js";document.getElementsByTagName("head")[0].appendChild(s);})());'>newsela2roam</a> - Copy an article from Newsela to Roam
 </li>
-            
+                
                 <li><a href='javascript:void((function(){var s = document.createElement("script");s.type = "text/javascript";s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@main/bookmarklets/otter2roam/otter2roam.js";document.getElementsByTagName("head")[0].appendChild(s);})());'>otter2roam</a> - Copy a transcript from Otter.ai to Roam
 </li>
-            
-        </ul>
+                
+            </ul>
+        </div>
     </main>
     <footer>
-        Created by <a href="https://twitter.com/serizawa_jp">@serizawa_jp</a>.
+        <p><b>DISCLAIMER: USE OF THESE BOOKMARKLETS ARE AT YOU SOLE RISK.</b></p>
+        <p>Created by <a href="https://twitter.com/serizawa_jp">@serizawa_jp</a>.</p>
     </footer>
 </body>
+
 </html>

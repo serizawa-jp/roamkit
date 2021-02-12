@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,24 +8,30 @@
     <title>Bookmarklets - RoamKit</title>
 
     <!-- CSS for users with dark mode -->
-    <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_big-stone.min.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_big-stone.min.css"
+        media="(prefers-color-scheme: dark)">
     <!-- CSS for users without dark mode -->
     <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_pearl-lusta.min.css"
         media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
 </head>
+
 <body>
     <header>
         <h1>Bookmarklets</h1>
     </header>
     <main>
-        <ul>
-            {{range $s := .Scripts }}
+        <div>
+            <ul>
+                {{range $s := .Scripts }}
                 <li><a href='{{$s.Code}}'>{{$s.Name}}</a>{{ if ne $s.Description "" }} - {{$s.Description}}{{end}}</li>
-            {{end}}
-        </ul>
+                {{end}}
+            </ul>
+        </div>
     </main>
     <footer>
-        Created by <a href="https://twitter.com/serizawa_jp">@serizawa_jp</a>.
+        <p><b>DISCLAIMER: USE OF THESE BOOKMARKLETS ARE AT YOU SOLE RISK.</b></p>
+        <p>Created by <a href="https://twitter.com/serizawa_jp">@serizawa_jp</a>.</p>
     </footer>
 </body>
+
 </html>
