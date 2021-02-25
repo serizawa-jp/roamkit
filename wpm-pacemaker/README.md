@@ -21,6 +21,8 @@ To install, do the same thing you do for any roam/js script.
 ```javascript
  window.wpmPacemaker = {
    wpm: 200,
+   color: "black",
+   backgroundColor: "yellow"
  };
 
  var s = document.createElement("script");
