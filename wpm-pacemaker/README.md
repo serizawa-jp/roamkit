@@ -17,7 +17,7 @@ To install, do the same thing you do for any roam/js script.
 1. Paste the following into the new Code Block
 
 ```javascript
- window.roamkit.wpmPacemaker = {
+ window.wpmPacemaker = {
    wpm: 200,
  };
 
