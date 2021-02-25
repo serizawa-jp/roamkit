@@ -1,6 +1,8 @@
 # wpm-pacemaker
 
-![2021-02-25 19-46-25 2021-02-25 19_47_31](https://user-images.githubusercontent.com/78351950/109142576-60f4df00-77a2-11eb-84e4-df2aff3f2df7.gif)
+To start WPM pacemaker, create a `{{wpm}}` button and nest the content of the text as a child.
+
+![2021-02-25 21-26-54 2021-02-25 21_30_02](https://user-images.githubusercontent.com/78351950/109153744-a28c8680-77b0-11eb-96d2-866a586ecfb8.gif)
 
 ## Installation
 
