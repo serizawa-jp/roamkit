@@ -1,0 +1,19 @@
+{
+  "name": "wpm-pacemaker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "parcel build --no-source-maps --experimental-scope-hoisting -o wpm-pacemaker.min.js src/App.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  },
+  "dependencies": {
+    "countable": "^3.0.1",
+    "lumin": "^0.1.4"
+  }
+}
