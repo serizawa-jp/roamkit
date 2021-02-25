@@ -5,11 +5,19 @@ const defaultConfig = {
     wpm: 200
 };
 
+if (!window.roamkit) {
+    window.roamkit = {};
+}
+
 const config = { ...defaultConfig, ...window?.roamkit?.wpmPacemaker };
 
 const wpm = config.wpm;
 
 function startPacemaker(button, children, wordsCount, wpm) {
+    if (!!button.onclick) {
+        return;
+    }
+
     const l = lumin(children);
     const ms = (wordsCount / wpm) * 60000; // min -> milisec
 
@@ -17,10 +25,10 @@ function startPacemaker(button, children, wordsCount, wpm) {
     console.log(`WPM: ${wpm}`);
     console.log(`ms: ${ms}`);
 
-    button.addEventListener('click', e => {
+    button.onclick = () => {
         l.clear();
         l.start(ms);
-    });
+    };
 }
 
 const addEventListener = (button) => {
@@ -30,9 +38,13 @@ const addEventListener = (button) => {
     Countable.count(children, c => startPacemaker(button, children, c.words, wpm));
 };
 
-const buttonName = "wpm";
-const buttons = Array.from(document.querySelectorAll(".roam-article button")).filter(e => e.textContent === buttonName);
+const scanWPMButtons = () => {
+    const buttonName = "wpm";
+    const buttons = Array.from(document.querySelectorAll(".roam-article button")).filter(e => e.textContent === buttonName);
 
-buttons.forEach(b => {
-    addEventListener(b);
-});
+    buttons.forEach(b => {
+        addEventListener(b);
+    });
+}
+
+setInterval(scanWPMButtons, 1000);
