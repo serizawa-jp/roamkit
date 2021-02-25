@@ -1,5 +1,7 @@
 # wpm-pacemaker
 
+![2021-02-25 19-46-25 2021-02-25 19_47_31](https://user-images.githubusercontent.com/78351950/109142576-60f4df00-77a2-11eb-84e4-df2aff3f2df7.gif)
+
 ## Installation
 
 To install, do the same thing you do for any roam/js script.
