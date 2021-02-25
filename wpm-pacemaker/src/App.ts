@@ -5,7 +5,7 @@ const defaultConfig = {
     wpm: 200
 };
 
-const config = {...defaultConfig, ...window?.roamkit?.wpmPacemaker};
+const config = { ...defaultConfig, ...window?.roamkit?.wpmPacemaker };
 
 const wpm = config.wpm;
 
