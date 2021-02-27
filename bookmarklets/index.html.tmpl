@@ -21,11 +21,16 @@
     </header>
     <main>
         <div>
-            <ul>
-                {{range $s := .Scripts }}
-                <li><a href='{{$s.Code}}'>{{$s.Name}}</a>{{ if ne $s.Description "" }} - {{$s.Description}}{{end}}</li>
-                {{end}}
-            </ul>
+            <table>
+                <tbody>
+                    {{range $s := .Scripts }}
+                    <tr>
+                        <td><a href='{{$s.Code}}'>{{$s.Name}}</a></td>
+                        <td>{{ if ne $s.Description "" }}{{$s.Description}}{{end}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
         </div>
     </main>
     <footer>
