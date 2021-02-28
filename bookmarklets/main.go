@@ -11,6 +11,7 @@ import (
 const (
 	readmeTemplateFileName = "README.md.tmpl"
 	docTemplateFileName    = "index.html.tmpl"
+	anything2Roam          = "anything2roam"
 )
 
 var (
@@ -32,12 +33,16 @@ func createREADME(dirname, code string) error {
 	})
 }
 
-func createBookmarklet(name string) string {
+func createCode(name string) string {
 	return fmt.Sprintf(
-		`javascript:void((function(){var s = document.createElement("script");s.type = "text/javascript";s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@main/bookmarklets/%s/%s.js";document.getElementsByTagName("head")[0].appendChild(s);})());`,
+		`(function(){var s = document.createElement("script");s.type = "text/javascript";s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@main/bookmarklets/%s/%s.js";document.getElementsByTagName("head")[0].appendChild(s);})()`,
 		name,
 		name,
 	)
+}
+
+func createBookmarklet(name, code string) string {
+	return fmt.Sprintf(`javascript:void(%s);`, code)
 }
 
 func createDoc(scripts []Script) error {
@@ -62,10 +67,55 @@ func getDescription(dir string) string {
 	return string(b)
 }
 
+func getHost(dir string) string {
+	path := fmt.Sprintf("%s/.host", dir)
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return ""
+	}
+	return string(b)
+}
+
 type Script struct {
 	Name        string
 	Code        string
+	RawCode     string
 	Description string
+	Host        string
+}
+
+func generateAnything2RoamCode(scripts []Script) string {
+	script := `const host = document.location.host; switch (true) {`
+	for _, s := range scripts {
+		if s.Host == "" {
+			continue
+		}
+
+		script += fmt.Sprintf(
+			"case /%s/.test(host): {%s; break;}",
+			s.Host,
+			s.RawCode,
+		)
+	}
+	script += fmt.Sprintf("default: {alert(`This site(${host})is unsupported.`); break;}}")
+
+	return fmt.Sprintf(`(function(){%s})()`, script)
+}
+
+func createAnything2Roam(scripts []Script) error {
+	code := generateAnything2RoamCode(scripts)
+	path := fmt.Sprintf(`%s/%s.js`, anything2Roam, anything2Roam)
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	if _, err := f.WriteString(code); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func main() {
@@ -91,7 +141,12 @@ func runMain() int {
 
 	var scripts = []Script{}
 	for _, d := range bookmarkletDirs {
-		code := createBookmarklet(d)
+		if d == anything2Roam {
+			continue
+		}
+
+		rawCode := createCode(d)
+		code := createBookmarklet(d, rawCode)
 		if err := createREADME(d, code); err != nil {
 			fmt.Fprintf(os.Stderr, "[ERROR] failed to create a README: %v\n", err)
 			return 1
@@ -100,13 +155,20 @@ func runMain() int {
 		s := Script{
 			Name:        d,
 			Code:        code,
+			RawCode:     rawCode,
 			Description: getDescription(d),
+			Host:        getHost(d),
 		}
 		scripts = append(scripts, s)
 	}
 
 	if err := createDoc(scripts); err != nil {
 		fmt.Fprintf(os.Stderr, "[ERROR] failed to create a doc: %v\n", err)
+		return 1
+	}
+
+	if err := createAnything2Roam(scripts); err != nil {
+		fmt.Fprintf(os.Stderr, "[ERROR] failed to create anything2roam: %v\n", err)
 		return 1
 	}
 
