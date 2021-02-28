@@ -1,5 +1,9 @@
-import { createBlock, createPage } from './Block'
+import { createPage, createBlock, writePage, writeBlock, writeBlocks } from './Block'
 
-window.roamkit = {};
-window.roamkit.createBlock = createBlock;
-window.roamkit.createPage = createPage;
+window.roamkit = {
+    createPage,
+    createBlock,
+    writePage,
+    writeBlock,
+    writeBlocks
+};

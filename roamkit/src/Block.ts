@@ -1,11 +1,11 @@
 import { nanoid } from 'nanoid'
 
-export interface Page {
+interface Page {
     title: string
     uid?: string
 }
 
-export interface Block {
+interface Block {
     text: string
 
     uid?: string
@@ -14,22 +14,31 @@ export interface Block {
     children?: Blocks
 }
 
-export type Blocks = Array<Block>
+type Blocks = Array<Block>
 
 export function createBlock(text: string, children?: Blocks): Block {
     return { text, children }
 }
 
-export function createPage(pageTitle: string, blocks?: Blocks): Page {
+export function createPage(pageTitle: string): Page {
     const page: Page = { title: pageTitle, uid: nanoid() };
-    window.roamAlphaAPI.createPage({ "page": { "title": page.title, "uid": page.uid } });
-    if (blocks === undefined) return page;
-
-    blocks.forEach((b, idx) => write(b, page.uid, idx));
     return page;
 }
 
-function write(block: Block, parentUid: string, order: number): void {
+export function writePage(page: Page, blocks?: Blocks): void {
+    if (page.uid === undefined) page.uid = nanoid();
+
+    window.roamAlphaAPI.createPage({ "page": { "title": page.title, "uid": page.uid } });
+
+    if (blocks === undefined) return;
+    writeBlocks(blocks, page.uid);
+}
+
+export function writeBlocks(blocks: Blocks, parentUid: string): void {
+    blocks.forEach((b, idx) => writeBlock(b, parentUid, idx));
+}
+
+export function writeBlock(block: Block, parentUid: string, order: number): void {
     if (block.uid === undefined) block.uid = nanoid();
 
     window.roamAlphaAPI.createBlock({
@@ -41,5 +50,5 @@ function write(block: Block, parentUid: string, order: number): void {
     })
     if (block.children === undefined) return;
 
-    block.children.forEach((c, idx) => write(c, block.uid, idx));
+    block.children.forEach((c, idx) => writeBlock(c, block.uid, idx));
 }
