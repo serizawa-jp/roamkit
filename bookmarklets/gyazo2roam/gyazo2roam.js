@@ -35,7 +35,7 @@
     const ocrText = document
         .querySelector(".ocr-desc-text")
         .textContent.split("\n")
-        .join("");
+        .join(" ");
     const imageLink = document.querySelector("picture img").getAttribute("src");
 
     const metadata = [
@@ -46,10 +46,11 @@
         .map((m) => `  ${m}`)
         .join("\n");
 
-    let res = `![Image from Gyazo](${imageLink})
-  ${metadata}
-    Text:
-      ${ocrText}
-  `;
+    let res = [
+        `![Image from Gyazo](${imageLink})`,
+        `  ${metadata}`,
+        "  Text:",
+        `    ${ocrText}`
+    ].join("\n");
     navigator.clipboard.writeText(res);
 })();
