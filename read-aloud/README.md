@@ -1,5 +1,7 @@
 # read-aloud
 
+I strongly recommend using the Microsoft Edge browser.
+
 To start reading aloud, create a `{{read}}` button and nest the content of the text as a child.
 
 ![](https://user-images.githubusercontent.com/78351950/110199986-b023c980-7e9e-11eb-9672-fb57f62b1b23.png)
@@ -32,3 +34,5 @@ if (!document.getElementById("roamkit-read-aloud")) {
   document.getElementsByTagName("head")[0].appendChild(s);
 }
 ```
+
+![](https://user-images.githubusercontent.com/78351950/110200146-cbdb9f80-7e9f-11eb-8420-562dcc6f8dc7.png)
