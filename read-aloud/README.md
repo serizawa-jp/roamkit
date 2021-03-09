@@ -28,7 +28,7 @@ window.readAloud = {};
 if (!document.getElementById("roamkit-read-aloud")) {
   var s = document.createElement("script");
   s.type = "text/javascript";
-  s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@0fade9a/read-aloud/dist/read-aloud.min.js";
+  s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@5fe2474/read-aloud/dist/read-aloud.min.js";
   s.id = "roamkit-read-aloud";
   s.async = true;
   document.getElementsByTagName("head")[0].appendChild(s);
