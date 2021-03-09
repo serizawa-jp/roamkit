@@ -1,4 +1,5 @@
 import { detect } from 'detect-browser';
+const Mark = require('mark.js');
 
 // https://stackoverflow.com/a/23808155
 const speechUtteranceChunker = (utt, settings, callback?) => {
@@ -125,6 +126,14 @@ const startReadAloud = (button, children) => {
         const voice = config.voiceSelector(browser.name, speechSynthesis.getVoices());
         const uttr = new SpeechSynthesisUtterance(children.textContent);
         uttr.voice = voice;
+        const mark = new Mark(children);
+        uttr.onboundary = (e: SpeechSynthesisEvent) => {
+            mark.unmark();
+            mark.markRanges([{start: e.charIndex, length: e.charLength}]);
+        }
+        uttr.onend = (e) => {
+            mark.unmark();
+        }
 
         if (browser.name.includes("edge")) {
           if (config.utterHandler !== undefined) {
