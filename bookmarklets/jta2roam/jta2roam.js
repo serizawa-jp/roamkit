@@ -54,7 +54,6 @@
     };
 
     articleTexts.forEach((n) => {
-        //  	debugger;
         let text = n.textContent.trim();
         const hasImage = n.querySelector("img") !== null;
         if (hasImage) {
