@@ -1,0 +1,18 @@
+{
+  "name": "audio-timestamper",
+  "version": "1.0.0",
+  "description": "![](https://user-images.githubusercontent.com/78351950/106455697-e355f000-64cf-11eb-9e60-82763f9d2ffd.png)",
+  "main": "audio-timestamper.js",
+  "scripts": {
+    "build": "parcel build --no-source-maps --experimental-scope-hoisting -d . -o audio-timestamper.js src/audio-timestamper.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  },
+  "dependencies": {
+    "mousetrap": "^1.6.5"
+  }
+}

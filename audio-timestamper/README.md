@@ -15,6 +15,7 @@
 | Advance         | alt+shft+x  | 10            |
 | Reset           | alt+shift+r | -             |
 | Preferred speed | alt+shift+g | 1.2           |
+| Grab a time     | alt+shift+n | -             |
 
 In macOS, you can use 'option' instead of 'alt'.
 
@@ -45,6 +46,7 @@ To install, do the same thing you do for any roam/js script.
    advanceKey: 'alt+shift+x',
    resetSpeedKey: 'alt+shift+r',
    preferredSpeedKey: 'alt+shift+g',
+   grabTimeKey: 'alt+shift+n',
 
    increaseSpeed: 0.5,
    decreaseSpeed: 0.5,
@@ -55,7 +57,7 @@ To install, do the same thing you do for any roam/js script.
 
  var s = document.createElement("script");
  s.type = "text/javascript";
- s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@v0.2/audio-timestamper/audio-timestamper.js";
+ s.src = "https://cdn.jsdelivr.net/gh/serizawa-jp/roamkit@v0.3/audio-timestamper/audio-timestamper.js";
  document.getElementsByTagName("head")[0].appendChild(s);
 ```
 
