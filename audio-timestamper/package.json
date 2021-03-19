@@ -13,6 +13,7 @@
     "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
-    "mousetrap": "^1.6.5"
+    "mousetrap": "^1.6.5",
+    "regenerator-runtime": "^0.12.1"
   }
 }
