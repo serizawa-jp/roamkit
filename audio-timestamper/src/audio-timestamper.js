@@ -1,3 +1,5 @@
+import 'regenerator-runtime/runtime';
+
 const Mousetrap = require('mousetrap');
 Mousetrap.prototype.stopCallback = function () { return false };
 
