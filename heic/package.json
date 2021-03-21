@@ -4,14 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "parcel build --no-source-maps --experimental-scope-hoisting -o heic.min.js src/App.ts",
+    "build": "NODE_ENV=\\\"production\\\" esbuild src/App.ts --bundle --minify --target=es2020 --outfile=dist/heic.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "axios": "^0.21.1",
-    "parcel-bundler": "^1.12.3"
+    "esbuild": "^0.9.6"
+  },
+  "browser": {
+    "crypto": false,
+    "fs": false,
+    "path": false
   },
   "dependencies": {
     "jpeg-js": "^0.4.3",
