@@ -19,6 +19,7 @@
     "path": false
   },
   "dependencies": {
+    "Buffer": "^0.0.0",
     "jpeg-js": "^0.4.3",
     "libheif-js": "^1.11.0"
   }
