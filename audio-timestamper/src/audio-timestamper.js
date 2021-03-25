@@ -1,10 +1,13 @@
 import 'regenerator-runtime/runtime';
+import * as id3 from 'id3js';
+import axios from "axios";
+const jsmediatags = require("jsmediatags");
 
 const Mousetrap = require('mousetrap');
 Mousetrap.prototype.stopCallback = function () { return false };
 
 const defaultConfig = {
-    debug: false,
+    debug: true,
 
     enableClickAndPlay: false,
     enableKeyShortCuts: true,
@@ -16,6 +19,7 @@ const defaultConfig = {
     resetSpeedKey: 'alt+shift+r',
     preferredSpeedKey: 'alt+shift+g',
     grabTimeKey: 'alt+shift+n',
+    grabTitleKey: 'alt+shift+t',
 
     increaseSpeed: 0.5,
     decreaseSpeed: 0.5,
@@ -217,6 +221,66 @@ const mouseTrapReady = setInterval(() => {
         const timeStr = new Date(player.currentTime * 1000).toISOString().substr(11, 8)
         const oldTxt = document.querySelector("textarea.rm-block-input").value;
         fillTheBlock(timeStr + " " + oldTxt);
+        return false;
+    }, 'keydown');
+
+    // Grab title
+    Mousetrap.bind(config.grabTitleKey, async (e) => {
+        log("grabTitleKey");
+        e.preventDefault()
+
+        const player = getCurrentPlayer();
+        if (player === null) {
+            return false;
+        }
+        const src = player.src;
+
+        try {
+            await axios
+                .get(src, { responseType: "blob" })
+                .then(r => r.data)
+                .then(async b => {
+                    new Promise((resolve, reject) => {
+                        new jsmediatags.Reader(b)
+                            .read({
+                                onSuccess: (tag) => {
+                                    resolve(tag);
+                                },
+                                onError: (error) => {
+                                    reject(error);
+                                }
+                            });
+                    })
+                        .then(tagInfo => {
+                            log(tagInfo);
+                            try {
+                                const tags = tagInfo.tags;
+                                const title = tags.title;
+                                const album = tags.album;
+                                const chapters = tags.CHAP
+                                    .filter(c => c.id === "CHAP")
+                                    .map(c => ({ startTime: c.data.startTime, title: c.data.subFrames.TIT2.data }))
+                                    .map(c => {
+                                        const timeStr = new Date(c.startTime).toISOString().substr(11, 8)
+                                        return [timeStr, c.title].join(" ");
+                                    });
+                                const res = [`${title} / ${album}`, `${chapters.join("\n")}`].join("\n");
+                                // TODO: write via roamAlphaApi
+                                // TODO: change shortcut key to avoid showing chacters
+                                navigator.clipboard.writeText(res);
+                            } catch (e) {
+                                log(`failed to parses chapter: ${e}`);
+                            }
+                        })
+                        .catch(error => {
+                            // handle errors
+                            log(`jsmediatagsError: ${e}`);
+                        });
+                });
+        } catch (e) {
+            log("title not found");
+        }
+
         return false;
     }, 'keydown');
 
