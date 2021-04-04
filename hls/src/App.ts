@@ -14,7 +14,18 @@ const get_url_extension = (url) => {
     return url.split(/[#?]/)[0].split('.').pop().trim();
 }
 
-const debug = (s) => console.log(`[HLS]: ${s}`);
+const defaultConfig = {
+    debug: false,
+};
+
+window.hlsConfig = window.hlsConfig || {};
+
+const config = { ...defaultConfig, ...window.hlsConfig };
+
+const debug = (s) => {
+    if (!config.debug) return;
+    console.log(`[HLS]: ${s}`);
+};
 
 const activate = async () => {
     if (window.Hls === undefined) {
