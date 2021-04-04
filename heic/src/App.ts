@@ -1,3 +1,4 @@
+import * as Buffer from "Buffer";
 import axios from "axios";
 
 const jpegJs = require('jpeg-js');
